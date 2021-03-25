@@ -1,9 +1,7 @@
 <template>
   <div class="bubble">
     <h4 class="text bubble-from">Sample bot</h4>
-    <div class="text">
-        {{ msg }}
-    </div>
+    <div class="text" v-html="msg" />
   </div>
 </template>
 
@@ -29,6 +27,7 @@ export default {
     max-width: 430px;
     min-width: 100px;
     border: 1px solid #eeeeee;
+    white-space: pre-line;
 }
 .text {
     font-family: 'Open Sans', sans-serif;

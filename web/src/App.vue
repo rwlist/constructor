@@ -9,7 +9,7 @@
               :key="index"
               class="row-container"
             >
-              <div class="row-actions">
+              <div v-if="showControlButtons" class="row-actions">
                 <button @click="addButtonToRow(row)">Add button</button>
                 <button @click="removeRow(msg.rows, index)">Remove row</button>
               </div>
@@ -25,7 +25,7 @@
             </div>
           </div>
           <br>
-          <button @click="addRow(msg.rows)">Add row</button>
+          <button v-if="showControlButtons" @click="addRow(msg.rows)">Add row</button>
       </div>
     </div>
     <div id="control-menu">
@@ -38,6 +38,9 @@
           {{ state }}
         </option>
       </select>
+      <br>
+      <input type="checkbox" v-model="showControlButtons" />
+      <label for="checkbox">Show control buttons</label>
       <br>
       <br>
 
@@ -57,28 +60,29 @@ export default {
   data() {
     return {
       states: {
-        "1": {
+        "state1": {
           messages: [
             {
-              text: "как колво строк в файлах по расширению посчитать",
+              text: "This is state 1.\n\nEnjoy.",
               rows: [
-                [{text: "🤝 Начать сделку", state: "2"}, {text: "Бесполезная кнопка"}]
+                [{text: "🤝 Jump to state 2", state: "state2"}, {text: "Useless button"}]
               ]
             }
           ]
         },
-        "2": {
+        "state2": {
           messages: [
             {
-              text: "Это уже другое состояние!",
+              text: "This is another state.",
               rows: [
-                [{text: "Вернуться обратно", state: "1"}, {text: "Еще одна кнопка"}]
+                [{text: "Go back", state: "state1"}, {text: "Yet another button"}]
               ]
             }
           ]
         }
       },
-      currentState: "1"
+      currentState: "state1",
+      showControlButtons: false
     }
   },
   name: 'App',
@@ -166,6 +170,7 @@ body {
 }
 .full-message {
   display: inline-block;
+  padding-top: 10px;
 }
 .row-container{
   display: block;
